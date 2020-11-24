@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Consumes("application/json")
 public class TransformerEndpoint {
 
+	public static final String MSG_TRANSFORMER_TYPE_INVALID = "Transformer type invalid";
 	@Autowired
 	private TransformerRepository repository;
 
@@ -33,32 +34,34 @@ public class TransformerEndpoint {
 	}
 
 	@POST
-	public Response insertTransformer(Transformer Transformer) {
-		if (repository.findByName(Transformer.getName()) != null) {
+	public Response insertTransformer(Transformer transformer) {
+		if (transformer.getType() == null){
+			return Response.status(Response.Status.BAD_REQUEST).entity(MSG_TRANSFORMER_TYPE_INVALID).build();
+		}
+		if (repository.findByName(transformer.getName()) != null) {
 			return Response.status(Response.Status.CONFLICT).build();
 		}
-		return Response.ok(repository.save(Transformer).getId()).build();
+		return Response.ok(repository.save(transformer).getId()).build();
 	}
 
 	@PUT
 	@Path("/{transformerId}")
 	@Transactional
 	public Response updateTransformer(Transformer transformerInput, @PathParam("transformerId") Integer id) {
-		Transformer Transformer = repository.findOne(id);
-		if (Transformer == null) {
+		Transformer transformer = repository.findOne(id);
+		if (transformer == null) {
 			return insertTransformer(transformerInput);
 		} else {
-			Transformer.setCourage(transformerInput.getCourage());
-			Transformer.setEndurance(transformerInput.getEndurance());
-			Transformer.setFirepower(transformerInput.getFirepower());
-			Transformer.setIntelligence(transformerInput.getIntelligence());
-			Transformer.setName(transformerInput.getName());
-			Transformer.setRank(transformerInput.getRank());
-			Transformer.setSpeed(transformerInput.getSpeed());
-			Transformer.setStrength(transformerInput.getStrength());
-			repository.save(Transformer);
+			transformer.setCourage(transformerInput.getCourage());
+			transformer.setEndurance(transformerInput.getEndurance());
+			transformer.setFirepower(transformerInput.getFirepower());
+			transformer.setIntelligence(transformerInput.getIntelligence());
+			transformer.setName(transformerInput.getName());
+			transformer.setRank(transformerInput.getRank());
+			transformer.setSpeed(transformerInput.getSpeed());
+			transformer.setStrength(transformerInput.getStrength());
+			return Response.ok(repository.save(transformer).getId()).build();
 		}
-		return Response.ok().build();
 	}
 
 	@DELETE

@@ -10,6 +10,8 @@ public class TransformerResource extends AbstractBaseResource {
 	private static final long serialVersionUID = 1L;
 
 	private Integer idTransformer;
+	private String name;
+	private String type;
 	private Integer strength;
 	private Integer intelligence;
 	private Integer speed;
@@ -24,6 +26,8 @@ public class TransformerResource extends AbstractBaseResource {
 		}
 		TransformerResource resource = new TransformerResource();
 		resource.setIdTransformer(entity.getId());
+		resource.setName(entity.getName());
+		resource.setType(entity.getType().name());
 		resource.setCourage(entity.getCourage());
 		resource.setEndurance(entity.getEndurance());
 		resource.setFirepower(entity.getFirepower());
@@ -40,6 +44,22 @@ public class TransformerResource extends AbstractBaseResource {
 
 	public void setIdTransformer(Integer idTransformer) {
 		this.idTransformer = idTransformer;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Integer getStrength() {

@@ -1,6 +1,8 @@
 package org.interview.aequilibrium.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Entity
 @Table(name = "TRANSFORMER_TB")
@@ -10,6 +12,10 @@ public class Transformer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TRANSFORMER")
     private Integer id;
+
+    @Column(name = "TRANSFORMER_TYPE")
+    @Enumerated(EnumType.ORDINAL)
+    private TransformerType type;
 
     @Column
     private String name;
@@ -37,9 +43,10 @@ public class Transformer {
 
     public Transformer(){ super();}
 
-    public Transformer(String name, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower) {
+    public Transformer(String name, TransformerType type, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower) {
         this();
         this.name = name;
+        this.type = type;
         this.strength = strength;
         this.intelligence = intelligence;
         this.speed = speed;
@@ -67,6 +74,19 @@ public class Transformer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public TransformerType getType() {
+        return type;
+    }
+
+    public void setType(TransformerType type) {
+        this.type = type;
+    }
+
+
+    public void setType(String type) {
+        this.type = TransformerType.valueOfByCode(type).orElse(null);
     }
 
     public Integer getStrength() {
@@ -124,4 +144,20 @@ public class Transformer {
     public void setFirepower(Integer firepower) {
         this.firepower = firepower;
     }
+
+    public enum TransformerType {
+        AUTOBOT("A"), DECEPTICON("D");
+
+        private String code;
+
+        TransformerType(String code) {
+            this.code = code;
+        }
+
+        public static Optional<TransformerType> valueOfByCode(String code){
+            return Arrays.stream(TransformerType.values()).filter(transformerType -> transformerType.code.equalsIgnoreCase(code)).findFirst();
+        }
+
+    }
 }
+
