@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="APP_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+
+        <file>logs/app.log</file>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+            </Pattern>
+        </encoder>
+
+    </appender>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="jdbc" level="OFF"/>
+    <logger name="jdbc.sqltiming" level="DEBUG"/>
+    <logger name="jdbc.resultsettable" level="DEBUG"/>
+
+    <logger name="org.hibernate" level="ALL"/>
+
+    <logger name="org.interview.aequilibrium" level="ALL">
+        <appender-ref ref="APP_LOG_FILE"/>
+    </logger>
+
+</configuration>
