@@ -45,7 +45,7 @@ public class TransformerServiceImpl implements TransformerService {
         if (transformerInput.getId() == null) {
             return insertTransformer(transformerInput);
         }
-        Transformer transformer = repository.findOne(transformerInput.getId());
+        Transformer transformer = repository.findById(transformerInput.getId()).orElse(null);
         if (transformer == null) {
             return insertTransformer(transformerInput);
         } else {
@@ -62,8 +62,8 @@ public class TransformerServiceImpl implements TransformerService {
     }
 
     public Response deleteTransformer(Integer id) {
-        if (repository.exists(id)) {
-            repository.delete(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
             return Response.noContent().build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();

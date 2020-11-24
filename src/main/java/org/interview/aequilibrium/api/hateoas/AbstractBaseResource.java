@@ -1,10 +1,10 @@
 package org.interview.aequilibrium.api.hateoas;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  * The Abstract Base Resource.
  */
-public abstract class AbstractBaseResource extends ResourceSupport {
+public abstract class AbstractBaseResource extends RepresentationModel {
 
 }
