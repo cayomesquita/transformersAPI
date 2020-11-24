@@ -6,24 +6,25 @@ import org.interview.aequilibrium.persistence.TransformerRepository;
 import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The Transformer service implementation.
+ */
 @Service
 public class TransformerServiceImpl implements TransformerService {
 
-    public static final String MSG_TRANSFORMER_TYPE_INVALID = "Transformer type invalid";
+    private static final String MSG_TRANSFORMER_TYPE_INVALID = "Transformer type invalid";
 
     @Autowired
     private TransformerRepository repository;
 
     public Response getTransformers() {
         List<TransformerResource> result = repository.findAll().stream()
-                .map(entity -> TransformerResource.getInstace(entity)).collect(Collectors.toList());
+                .map(entity -> TransformerResource.createInstance(entity)).collect(Collectors.toList());
         if (result == null) {
             return Response.noContent().build();
         }
