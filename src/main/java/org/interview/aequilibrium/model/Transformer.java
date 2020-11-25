@@ -114,6 +114,15 @@ public class Transformer {
     }
 
     /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setIdTransformer(Integer id) {
+        this.setId(id);
+    }
+
+    /**
      * Gets name.
      *
      * @return the name
@@ -343,6 +352,10 @@ public class Transformer {
 
         TransformerType(String code) {
             this.code = code;
+        }
+
+        public String getCode() {
+            return code;
         }
 
         /**

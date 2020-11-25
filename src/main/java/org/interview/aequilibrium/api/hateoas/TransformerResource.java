@@ -40,7 +40,7 @@ public class TransformerResource extends AbstractBaseResource {
 		TransformerResource resource = new TransformerResource();
 		resource.setIdTransformer(entity.getId());
 		resource.setName(entity.getName());
-		resource.setType(entity.getType().name());
+		resource.setType(entity.getType().getCode());
 		resource.setCourage(entity.getCourage());
 		resource.setEndurance(entity.getEndurance());
 		resource.setFirepower(entity.getFirepower());
