@@ -5,6 +5,7 @@ import org.interview.aequilibrium.model.Transformer;
 import org.interview.aequilibrium.persistence.TransformerRepository;
 import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -28,7 +29,8 @@ public class TransformerServiceImpl implements TransformerService {
 
     public Response getTransformers() {
         List<TransformerResource> result = repository.findAll().stream()
-                .map(entity -> TransformerResource.createInstance(entity)).collect(Collectors.toList());
+                .map(entity -> TransformerResource.createInstance(entity))
+                .collect(Collectors.toList());
         if (result == null) {
             return Response.noContent().build();
         }

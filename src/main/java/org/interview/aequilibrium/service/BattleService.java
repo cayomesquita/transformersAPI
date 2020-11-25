@@ -4,14 +4,15 @@ import javax.ws.rs.core.Response;
 import java.util.Set;
 
 /**
- * The interface Transformer service.
+ * The interface Battle service.
  */
 public interface BattleService {
 
     /**
-     * Gets all transformers.
+     * Gets battle result.
      *
-     * @return Http Response with transformers
+     * @param ids the ids
+     * @return the battle result
      */
     Response getBattleResult(Set<Integer> ids);
 

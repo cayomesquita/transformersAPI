@@ -214,6 +214,9 @@ class TransformerServiceTest {
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
+    /**
+     * Test get transformers by ids.
+     */
     @Test
     void testGetTransformersByIds() {
         Transformer transformer1 = new Transformer("Soundwave", Transformer.TransformerType.DECEPTICON, 8,9,2,6,7,5,6,10);

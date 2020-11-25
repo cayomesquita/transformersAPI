@@ -1,11 +1,12 @@
 package org.interview.aequilibrium.api.hateoas;
 
 import org.interview.aequilibrium.model.Transformer;
+import org.springframework.hateoas.Link;
 
 /**
  * The Transformer resource.
- *
- *    Reponsable to map the Transformer entity to a well-formed restful json resource
+ * <p>
+ * Reponsable to map the Transformer entity to a well-formed restful json resource
  */
 public class TransformerResource extends AbstractBaseResource {
 
@@ -24,6 +25,7 @@ public class TransformerResource extends AbstractBaseResource {
 	private Integer rank;
 	private Integer courage;
 	private Integer firepower;
+	private  Integer skill;
 
 	/**
 	 * Create instance.
@@ -46,6 +48,7 @@ public class TransformerResource extends AbstractBaseResource {
 		resource.setRank(entity.getRank());
 		resource.setSpeed(entity.getSpeed());
 		resource.setStrength(entity.getStrength());
+		resource.setSkill(entity.getSkill());
 		return resource;
 	}
 
@@ -227,5 +230,23 @@ public class TransformerResource extends AbstractBaseResource {
 	 */
 	public void setFirepower(Integer firepower) {
 		this.firepower = firepower;
+	}
+
+	/**
+	 * Gets skill.
+	 *
+	 * @return the skill
+	 */
+	public Integer getSkill() {
+		return skill;
+	}
+
+	/**
+	 * Sets skill.
+	 *
+	 * @param skill the skill
+	 */
+	public void setSkill(Integer skill) {
+		this.skill = skill;
 	}
 }
