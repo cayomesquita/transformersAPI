@@ -42,9 +42,9 @@ public class TransformerServiceImpl implements TransformerService {
         if (transformer.getType() == null){
             return Response.status(Response.Status.BAD_REQUEST).entity(MSG_TRANSFORMER_TYPE_INVALID).build();
         }
-        if (repository.findByName(transformer.getName()) != null) {
-            return Response.status(Response.Status.CONFLICT).build();
-        }
+//        if (repository.findByName(transformer.getName()) != null) {
+//            return Response.status(Response.Status.CONFLICT).build();
+//        }
         return Response.ok(repository.save(transformer).getId()).build();
     }
 
@@ -65,6 +65,7 @@ public class TransformerServiceImpl implements TransformerService {
             transformer.setRank(transformerInput.getRank());
             transformer.setSpeed(transformerInput.getSpeed());
             transformer.setStrength(transformerInput.getStrength());
+            transformer.setSkill(transformerInput.getSkill());
             return Response.ok(repository.save(transformer).getId()).build();
         }
     }
@@ -75,7 +76,7 @@ public class TransformerServiceImpl implements TransformerService {
             repository.deleteById(id);
             return Response.noContent().build();
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.noContent().build();
     }
 
     public List<Transformer> getTransformers(Integer... ids) {
