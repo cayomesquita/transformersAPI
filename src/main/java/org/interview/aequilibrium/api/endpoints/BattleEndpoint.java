@@ -34,7 +34,7 @@ public class BattleEndpoint {
 	 */
 	@GET
 	@Path("/result")
-	public Response getBattleResult(@QueryParam("ids") List<Integer> ids) {
+	public Response getBattleResult(@QueryParam("id") List<Integer> ids) {
 		Set<Integer> idCol = new HashSet<>(ids);
 		return battleService.getBattleResult(idCol);
 	}
