@@ -34,7 +34,7 @@ class TransformerServiceTest {
      * The type Transformer endpoint test context configuration.
      */
     @TestConfiguration
-    static class TransformerEndpointTestContextConfiguration {
+    static class TransformerServiceTestContextConfiguration {
 
         /**
          * Transformer service transformer service.
