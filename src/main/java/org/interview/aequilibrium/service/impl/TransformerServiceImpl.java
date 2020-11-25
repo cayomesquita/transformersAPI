@@ -7,8 +7,11 @@ import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.ws.rs.core.Response;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,5 +74,12 @@ public class TransformerServiceImpl implements TransformerService {
             return Response.noContent().build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    public List<Transformer> getTransformers(Integer... ids) {
+        if (ids == null || ids.length == 0){
+            return Collections.emptyList();
+        }
+        return repository.findAllById(Arrays.asList(ids));
     }
 }

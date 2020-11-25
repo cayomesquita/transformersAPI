@@ -3,6 +3,8 @@ package org.interview.aequilibrium.model;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Entity Transformer.
@@ -10,6 +12,9 @@ import java.util.Optional;
 @Entity
 @Table(name = "TRANSFORMER_TB")
 public class Transformer {
+
+    private static final String OPTIMUS_PRIME_NAME = "optimus prime";
+    private static final String PREDAKING_NAME = "predaking";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +49,9 @@ public class Transformer {
     @Column
     private Integer firepower = 0;
 
+    @Column
+    private Integer skill = 0;
+
     /**
      * Instantiates a new Transformer.
      */
@@ -61,8 +69,9 @@ public class Transformer {
      * @param rank         the rank
      * @param courage      the courage
      * @param firepower    the firepower
+     * @param skill        the skill
      */
-    public Transformer(String name, TransformerType type, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower) {
+    public Transformer(String name, TransformerType type, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower, Integer skill) {
         this();
         this.name = name;
         this.type = type;
@@ -73,6 +82,7 @@ public class Transformer {
         this.rank = rank;
         this.courage = courage;
         this.firepower = firepower;
+        this.skill = skill;
     }
 
     /**
@@ -80,8 +90,9 @@ public class Transformer {
      *
      * @return the integer
      */
-    public Integer getSkill(){
-        return getStrength() + getIntelligence()  + getSpeed() + getEndurance() + getFirepower();
+    public Integer getOverAllRating(){
+        return Stream.of(getStrength(), getIntelligence(), getSpeed(), getEndurance(), getFirepower())
+                .reduce(0, (a,b) -> (b == null ? a : a + b));
     }
 
     /**
@@ -272,6 +283,47 @@ public class Transformer {
      */
     public void setFirepower(Integer firepower) {
         this.firepower = firepower;
+    }
+
+    /**
+     * Gets skill.
+     *
+     * @return the skill
+     */
+    public Integer getSkill() {
+        return skill;
+    }
+
+    /**
+     * Sets skill.
+     *
+     * @param skill the skill
+     */
+    public void setSkill(Integer skill) {
+        this.skill = skill;
+    }
+
+    public boolean isOptimusPrime() {
+        return OPTIMUS_PRIME_NAME.equalsIgnoreCase(getName());
+    }
+
+    public boolean isPredaking() {
+        return PREDAKING_NAME.equalsIgnoreCase(getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Transformer that = (Transformer) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     /**
