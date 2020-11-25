@@ -6,6 +6,7 @@ import org.interview.aequilibrium.persistence.TransformerRepository;
 import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -31,6 +32,7 @@ public class TransformerServiceImpl implements TransformerService {
         return Response.ok(result).build();
     }
 
+    @Transactional
     public Response insertTransformer(Transformer transformer) {
         if (transformer.getType() == null){
             return Response.status(Response.Status.BAD_REQUEST).entity(MSG_TRANSFORMER_TYPE_INVALID).build();
@@ -41,6 +43,7 @@ public class TransformerServiceImpl implements TransformerService {
         return Response.ok(repository.save(transformer).getId()).build();
     }
 
+    @Transactional
     public Response updateTransformer(Transformer transformerInput) {
         if (transformerInput.getId() == null) {
             return insertTransformer(transformerInput);
@@ -61,6 +64,7 @@ public class TransformerServiceImpl implements TransformerService {
         }
     }
 
+    @Transactional
     public Response deleteTransformer(Integer id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);

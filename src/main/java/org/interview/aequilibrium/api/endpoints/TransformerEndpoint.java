@@ -29,7 +29,6 @@ public class TransformerEndpoint {
 	 * @return the transformers
 	 */
 	@GET
-	@Transactional
 	public Response getTransformers() {
 		return transformerService.getTransformers();
 	}
@@ -54,7 +53,6 @@ public class TransformerEndpoint {
 	 */
 	@PUT
 	@Path("/{transformerId}")
-	@Transactional
 	public Response updateTransformer(Transformer transformerInput, @PathParam("transformerId") Integer id) {
 		transformerInput.setId(id);
 		return transformerService.updateTransformer(transformerInput);
