@@ -4,7 +4,6 @@ import org.interview.aequilibrium.api.hateoas.TransformerResource;
 import org.interview.aequilibrium.model.Transformer;
 import org.interview.aequilibrium.persistence.TransformerRepository;
 import org.interview.aequilibrium.service.impl.TransformerServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -25,12 +24,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
+/**
+ * Transformer service test.
+ */
 @ExtendWith(SpringExtension.class)
 class TransformerServiceTest {
 
+    /**
+     * The type Transformer endpoint test context configuration.
+     */
     @TestConfiguration
     static class TransformerEndpointTestContextConfiguration {
 
+        /**
+         * Transformer service transformer service.
+         *
+         * @return the transformer service
+         */
         @Bean
         public TransformerService transformerService() {
             return new TransformerServiceImpl();
@@ -44,11 +54,9 @@ class TransformerServiceTest {
     @MockBean
     private TransformerRepository transformerRepository;
 
-    @BeforeEach
-    public void setUp() {
-
-    }
-
+    /**
+     * Test get all transformers case
+     */
     @Test
     void getTransformers() {
         Integer value = 1;
@@ -71,6 +79,9 @@ class TransformerServiceTest {
         assertEquals(aux.get(4).getName(), list.get(4).getName());
     }
 
+    /**
+     * Test the basic insert case
+     */
     @Test
     void insertTransformer() {
         Integer id = 1;
@@ -97,6 +108,9 @@ class TransformerServiceTest {
         assertEquals(Integer.valueOf(2), (Integer) response.getEntity());
     }
 
+    /**
+     * Test insert case when is going to duplicate
+     */
     @Test
     void insertTransformerDuplicatedTest() {
         Integer value = 1;
@@ -111,6 +125,9 @@ class TransformerServiceTest {
         assertEquals(Response.Status.CONFLICT.getStatusCode(), response.getStatus());
     }
 
+    /**
+     * Test insert case when does not recognize the transformer type
+     */
     @Test
     void insertTransformerNoTypeTest() {
         Integer value = 1;
@@ -119,6 +136,9 @@ class TransformerServiceTest {
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
+    /**
+     * Test basic update case
+     */
     @Test
     void updateTransformer() {
         Transformer newTransformer1 = new Transformer("String name1", Transformer.TransformerType.AUTOBOT, 1, 1, 1, 1, 1, 1, 1);
@@ -137,6 +157,9 @@ class TransformerServiceTest {
         assertEquals(newTransformer1.getId(), (Integer) response.getEntity());
     }
 
+    /**
+     * Test update case when Id is null. It has to insert a new transformer
+     */
     @Test
     void updateTransformerIdNull() {
         Transformer newTransformer2 = new Transformer("String name2", Transformer.TransformerType.AUTOBOT, 2, 2, 2, 2, 2, 2, 2);
@@ -153,6 +176,9 @@ class TransformerServiceTest {
         assertEquals(Integer.valueOf(2), (Integer) response.getEntity());
     }
 
+    /**
+     * Test update case when id does not exist. It has to insert a new transformer
+     */
     @Test
     void updateTransformerIdNotExist() {
         Transformer newTransformer2 = new Transformer("String name2", Transformer.TransformerType.AUTOBOT, 2, 2, 2, 2, 2, 2, 2);
@@ -171,6 +197,9 @@ class TransformerServiceTest {
         assertEquals(Integer.valueOf(1), (Integer) response.getEntity());
     }
 
+    /**
+     * Test delete case
+     */
     @Test
     void deleteTransformer() {
         Mockito.when(transformerRepository.existsById(1)).thenReturn(true, false);

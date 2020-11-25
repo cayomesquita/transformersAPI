@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Model Transformer test.
+ */
 class TransformerTest {
 
+    /**
+     * Test Transformer Type creation.
+     */
     @Test
     void creteTransformerTypeValueOfByCodeTest() {
         String codeAutobot = "A";
