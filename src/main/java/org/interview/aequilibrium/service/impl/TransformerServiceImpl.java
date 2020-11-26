@@ -45,7 +45,8 @@ public class TransformerServiceImpl implements TransformerService {
 //        if (repository.findByName(transformer.getName()) != null) {
 //            return Response.status(Response.Status.CONFLICT).build();
 //        }
-        return Response.ok(repository.save(transformer).getId()).build();
+        repository.save(transformer);
+        return Response.noContent().build();
     }
 
     @Transactional
@@ -66,7 +67,8 @@ public class TransformerServiceImpl implements TransformerService {
             transformer.setSpeed(transformerInput.getSpeed());
             transformer.setStrength(transformerInput.getStrength());
             transformer.setSkill(transformerInput.getSkill());
-            return Response.ok(repository.save(transformer).getId()).build();
+            repository.save(transformer);
+            return Response.noContent().build();
         }
     }
 
