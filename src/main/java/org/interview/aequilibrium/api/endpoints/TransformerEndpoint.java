@@ -28,6 +28,7 @@ public class TransformerEndpoint {
 	 * @return the transformers
 	 */
 	@GET
+	@Produces("application/hal+json")
 	public Response getTransformers() {
 		return transformerService.getTransformers();
 	}

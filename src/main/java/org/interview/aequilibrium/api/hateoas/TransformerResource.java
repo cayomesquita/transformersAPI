@@ -2,6 +2,7 @@ package org.interview.aequilibrium.api.hateoas;
 
 import org.interview.aequilibrium.model.Transformer;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.LinkRelation;
 
 /**
  * The Transformer resource.
@@ -49,6 +50,10 @@ public class TransformerResource extends AbstractBaseResource {
 		resource.setSpeed(entity.getSpeed());
 		resource.setStrength(entity.getStrength());
 		resource.setSkill(entity.getSkill());
+
+		resource.add(Link.of(String.format("http://%s/api/transformers", resource.host, resource.getIdTransformer())).withType("POST").withName("Insert").withRel(LinkRelation.of("transformers")));
+		resource.add(Link.of(String.format("http://%s/api/transformers/%d", resource.host, resource.getIdTransformer())).withType("PUT").withName("Update").withSelfRel());
+		resource.add(Link.of(String.format("http://%s/api/transformers/%d", resource.host, resource.getIdTransformer())).withType("DELETE").withName("Delete").withSelfRel());
 		return resource;
 	}
 

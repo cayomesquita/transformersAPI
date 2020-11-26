@@ -20,7 +20,7 @@ import java.util.Set;
  */
 @Component
 @Path("/battles")
-@Produces("application/json")
+@Produces("application/hal+json")
 @Consumes("application/json")
 public class BattleEndpoint {
 
