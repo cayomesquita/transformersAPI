@@ -15,10 +15,10 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="jdbc" level="OFF"/>
-    <logger name="jdbc.sqltiming" level="DEBUG"/>
-    <logger name="jdbc.resultsettable" level="DEBUG"/>
+    <logger name="jdbc.sqltiming" level="ERROR"/>
+    <logger name="jdbc.resultsettable" level="ERROR"/>
 
-    <logger name="org.hibernate" level="ALL"/>
+    <logger name="org.hibernate" level="WARN"/>
 
     <logger name="org.interview.aequilibrium" level="ALL">
         <appender-ref ref="APP_LOG_FILE"/>
