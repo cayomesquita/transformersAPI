@@ -1,9 +1,13 @@
 package org.interview.aequilibrium.api.hateoas;
 
+import org.interview.aequilibrium.api.endpoints.BattleEndpoint;
+import org.interview.aequilibrium.api.endpoints.TransformerEndpoint;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.LinkRelation;
 
+import java.util.Collections;
 import java.util.List;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 /**
  * Battle result resource.
@@ -26,7 +30,7 @@ public class BattleResultResource extends AbstractBaseResource {
 	 */
 	public static BattleResultResource createInstance(Integer numOfBattles, String winningTeam, List<String> losingSurvivers) {
 		BattleResultResource resource = new BattleResultResource(numOfBattles, winningTeam, losingSurvivers);
-		resource.add(Link.of(String.format("http://%s/api/transformers", resource.host)).withType("GET").withName("All transformers").withRel(LinkRelation.of("transformers")));
+		resource.add(linkTo(methodOn(TransformerEndpoint.class).getTransformers()).withRel("transformer").withType("GET").withName("All tranformers"));
 		return resource;
 	}
 

@@ -1,8 +1,8 @@
 package org.interview.aequilibrium.api.hateoas;
 
+import org.interview.aequilibrium.api.endpoints.TransformerEndpoint;
 import org.interview.aequilibrium.model.Transformer;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.LinkRelation;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 /**
  * The Transformer resource.
@@ -51,9 +51,10 @@ public class TransformerResource extends AbstractBaseResource {
 		resource.setStrength(entity.getStrength());
 		resource.setSkill(entity.getSkill());
 
-		resource.add(Link.of(String.format("http://%s/api/transformers", resource.host, resource.getIdTransformer())).withType("POST").withName("Insert").withRel(LinkRelation.of("transformers")));
-		resource.add(Link.of(String.format("http://%s/api/transformers/%d", resource.host, resource.getIdTransformer())).withType("PUT").withName("Update").withSelfRel());
-		resource.add(Link.of(String.format("http://%s/api/transformers/%d", resource.host, resource.getIdTransformer())).withType("DELETE").withName("Delete").withSelfRel());
+		resource.add(linkTo(methodOn(TransformerEndpoint.class).insertTransformer(entity)).withRel("transformers").withType("POST").withName("Insert"));
+		resource.add(linkTo(methodOn(TransformerEndpoint.class).updateTransformer(entity, entity.getId())).withSelfRel().withType("PUT").withName("Update"));
+		resource.add(linkTo(methodOn(TransformerEndpoint.class).deleteTransformer(entity.getId())).withSelfRel().withType("DELETE").withName("Delete"));
+
 		return resource;
 	}
 
