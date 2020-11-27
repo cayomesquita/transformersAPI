@@ -1,6 +1,7 @@
 package org.interview.aequilibrium.service;
 
-import javax.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
+
 import java.util.Set;
 
 /**
@@ -14,6 +15,6 @@ public interface BattleService {
      * @param ids the ids
      * @return the battle result
      */
-    Response getBattleResult(Set<Integer> ids);
+    ResponseEntity getBattleResult(Set<Integer> ids);
 
 }

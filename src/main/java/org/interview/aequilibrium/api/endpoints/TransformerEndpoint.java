@@ -3,20 +3,16 @@ package org.interview.aequilibrium.api.endpoints;
 import org.interview.aequilibrium.model.Transformer;
 import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Transformer endpoint.
  * Path /transformers
  *
  */
-@Component
-@Path("/transformers")
-@Produces("application/json")
-@Consumes("application/json")
+@RestController
+@RequestMapping("/api/transformers")
 public class TransformerEndpoint {
 
 	@Autowired
@@ -27,9 +23,8 @@ public class TransformerEndpoint {
 	 *
 	 * @return the transformers
 	 */
-	@GET
-	@Produces("application/hal+json")
-	public Response getTransformers() {
+	@GetMapping()
+	public ResponseEntity getTransformers() {
 		return transformerService.getTransformers();
 	}
 
@@ -39,8 +34,8 @@ public class TransformerEndpoint {
 	 * @param transformer the transformer
 	 * @return the response
 	 */
-	@POST
-	public Response insertTransformer(Transformer transformer) {
+	@PostMapping
+	public ResponseEntity insertTransformer(@RequestBody Transformer transformer) {
 		return transformerService.insertTransformer(transformer);
 	}
 
@@ -51,9 +46,8 @@ public class TransformerEndpoint {
 	 * @param id               the transformer id
 	 * @return the response
 	 */
-	@PUT
-	@Path("/{transformerId}")
-	public Response updateTransformer(Transformer transformerInput, @PathParam("transformerId") Integer id) {
+	@PutMapping("/{transformerId}")
+	public ResponseEntity updateTransformer(@RequestBody Transformer transformerInput, @PathVariable("transformerId") Integer id) {
 		transformerInput.setId(id);
 		return transformerService.updateTransformer(transformerInput);
 	}
@@ -64,9 +58,8 @@ public class TransformerEndpoint {
 	 * @param id the transformer id
 	 * @return the response
 	 */
-	@DELETE
-	@Path("/{transformerId}")
-	public Response deleteTransformer(@PathParam("transformerId") Integer id) {
+	@DeleteMapping("/{transformerId}")
+	public ResponseEntity deleteTransformer(@PathVariable("transformerId") Integer id) {
 		return transformerService.deleteTransformer(id);
 	}
 

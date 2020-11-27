@@ -1,8 +1,8 @@
 package org.interview.aequilibrium.service;
 
 import org.interview.aequilibrium.model.Transformer;
+import org.springframework.http.ResponseEntity;
 
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ public interface TransformerService {
      *
      * @return Http Response with transformers
      */
-    Response getTransformers();
+    ResponseEntity getTransformers();
 
     /**
      * Insert new transformer if does not exist with the same name.
@@ -22,7 +22,7 @@ public interface TransformerService {
      * @param transformer the transformer
      * @return Http Response with the transformer
      */
-    Response insertTransformer(Transformer transformer);
+    ResponseEntity insertTransformer(Transformer transformer);
 
     /**
      * Update transformer or insert if does not exist.
@@ -30,7 +30,7 @@ public interface TransformerService {
      * @param transformerInput the transformer input
      * @return Http Response
      */
-    Response updateTransformer(Transformer transformerInput);
+    ResponseEntity updateTransformer(Transformer transformerInput);
 
     /**
      * Delete transformer.
@@ -38,7 +38,7 @@ public interface TransformerService {
      * @param id the id
      * @return Http Response
      */
-    Response deleteTransformer(Integer id);
+    ResponseEntity deleteTransformer(Integer id);
 
     /**
      * Get transformers by ids

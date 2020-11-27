@@ -1,14 +1,13 @@
 package org.interview.aequilibrium.api.endpoints;
 
-import org.interview.aequilibrium.api.hateoas.BattleResultResource;
-import org.interview.aequilibrium.model.Transformer;
 import org.interview.aequilibrium.service.BattleService;
-import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +17,8 @@ import java.util.Set;
  * Path /transformers
  *
  */
-@Component
-@Path("/battles")
-@Produces("application/hal+json")
-@Consumes("application/json")
+@RestController
+@RequestMapping("/api/battles")
 public class BattleEndpoint {
 
 	@Autowired
@@ -32,9 +29,8 @@ public class BattleEndpoint {
 	 *
 	 * @return the transformers
 	 */
-	@GET
-	@Path("/result")
-	public Response getBattleResult(@QueryParam("id") List<Integer> ids) {
+	@GetMapping("/result")
+	public ResponseEntity getBattleResult(@RequestParam("id") List<Integer> ids) {
 		Set<Integer> idCol = new HashSet<>(ids);
 		return battleService.getBattleResult(idCol);
 	}

@@ -335,6 +335,23 @@ public class Transformer {
         return id.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Transformer{" +
+                "id=" + id +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", strength=" + strength +
+                ", intelligence=" + intelligence +
+                ", speed=" + speed +
+                ", endurance=" + endurance +
+                ", rank=" + rank +
+                ", courage=" + courage +
+                ", firepower=" + firepower +
+                ", skill=" + skill +
+                '}';
+    }
+
     /**
      * The enum Transformer type.
      */

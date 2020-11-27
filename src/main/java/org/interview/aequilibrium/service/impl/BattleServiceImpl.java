@@ -5,9 +5,9 @@ import org.interview.aequilibrium.model.Transformer;
 import org.interview.aequilibrium.service.BattleService;
 import org.interview.aequilibrium.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -28,7 +28,7 @@ public class BattleServiceImpl implements BattleService {
     private TransformerService transformerService;
 
     @Override
-    public Response getBattleResult(Set<Integer> ids) {
+    public ResponseEntity getBattleResult(Set<Integer> ids) {
         final List<Transformer> transformers = transformerService.getTransformers(ids.toArray(new Integer[0]));
         final Set<Transformer> col = new HashSet<>(transformers);
         AtomicInteger counterOptimusPrime = new AtomicInteger();
@@ -56,12 +56,12 @@ public class BattleServiceImpl implements BattleService {
             }
         });
         if (counterOptimusPrime.get() > 1 || counterPredaking.get() > 1) {
-            return Response.ok(createBattleResourceAllDestroyed(0)).build();
+            return ResponseEntity.ok(createBattleResourceAllDestroyed(0));
         }
         return runBattle(autobotsQueue, decepticonsQueue);
     }
 
-    private Response runBattle(Queue<Transformer> autobotsQueue, Queue<Transformer> decepticonsQueue) {
+    private ResponseEntity runBattle(Queue<Transformer> autobotsQueue, Queue<Transformer> decepticonsQueue) {
         int fights = 0;
         List<Transformer> autobotSurvivers = new ArrayList<>(autobotsQueue.size());
         List<Transformer> decepticonSurvivers = new ArrayList<>(decepticonsQueue.size());
@@ -72,7 +72,7 @@ public class BattleServiceImpl implements BattleService {
             boolean autobotWins = autobot.isOptimusPrime() || autobot.isPredaking();
             boolean decepticonWins = decepticon.isOptimusPrime() || decepticon.isPredaking();
             if (autobotWins && decepticonWins){
-                return Response.ok(createBattleResourceAllDestroyed(fights)).build();
+                return ResponseEntity.ok(createBattleResourceAllDestroyed(fights));
             }
             int fightResult = fight(autobot, decepticon);
             if (fightResult != 0) {
@@ -101,9 +101,9 @@ public class BattleServiceImpl implements BattleService {
                 List<String> survivers = autobotSurvivers.stream().map(transformer -> transformer.getName()).collect(Collectors.toList());
                 resultResource = BattleResultResource.createInstance(fights, DECEPTICONS, survivers);
             }
-            return Response.ok(resultResource).build();
+            return ResponseEntity.ok(resultResource);
         }
-        return Response.ok(createBattleResourceAllDestroyed(fights)).build();
+        return ResponseEntity.ok(createBattleResourceAllDestroyed(fights));
     }
 
     private BattleResultResource createBattleResourceAllDestroyed(int fights) {

@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -72,11 +73,11 @@ class TransformerServiceTest {
 
         Mockito.when(transformerRepository.findAll()).thenReturn(aux);
 
-        Response response = transformerService.getTransformers();
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof List);
-        List<TransformerResource> list = (List<TransformerResource>) response.getEntity();
+        ResponseEntity response = transformerService.getTransformers();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof List);
+        List<TransformerResource> list = (List<TransformerResource>) response.getBody();
         assertEquals(aux.size(), list.size());
         assertEquals(aux.get(0).getName(), list.get(0).getName());
         assertEquals(aux.get(4).getName(), list.get(4).getName());
@@ -97,18 +98,18 @@ class TransformerServiceTest {
 
         Integer value = 1;
         Transformer transformer1 = new Transformer("String name1", Transformer.TransformerType.DECEPTICON, value++, value++, value++, value++, value++, value++, value++, value++);
-        Response response = transformerService.insertTransformer(transformer1);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof Integer);
-        assertEquals(Integer.valueOf(1), (Integer) response.getEntity());
+        ResponseEntity response = transformerService.insertTransformer(transformer1);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof Integer);
+        assertEquals(Integer.valueOf(1), (Integer) response.getBody());
 
         Transformer transformer2 = new Transformer("String name2", Transformer.TransformerType.AUTOBOT, value++, value++, value++, value++, value++, value++, value++, value++);
         response = transformerService.insertTransformer(transformer2);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof Integer);
-        assertEquals(Integer.valueOf(2), (Integer) response.getEntity());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof Integer);
+        assertEquals(Integer.valueOf(2), (Integer) response.getBody());
     }
 
     /**
@@ -122,11 +123,11 @@ class TransformerServiceTest {
         Mockito.when(transformerRepository.save(any(Transformer.class))).thenReturn(transformer1);
         Mockito.when(transformerRepository.findByName("String name1")).thenReturn(null, transformer1);
 
-        Response response = transformerService.insertTransformer(transformer1);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        ResponseEntity response = transformerService.insertTransformer(transformer1);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         response = transformerService.insertTransformer(transformer1);
-        assertEquals(Response.Status.CONFLICT.getStatusCode(), response.getStatus());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     /**
@@ -136,8 +137,8 @@ class TransformerServiceTest {
     void insertTransformerNoTypeTest() {
         Integer value = 1;
         Transformer transformer = new Transformer("String name2", null, value++, value++, value++, value++, value++, value++, value++, value++);
-        Response response = transformerService.insertTransformer(transformer);
-        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+        ResponseEntity response = transformerService.insertTransformer(transformer);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     /**
@@ -154,11 +155,11 @@ class TransformerServiceTest {
         Mockito.when(transformerRepository.findById(1)).thenReturn(Optional.of(newTransformer1));
         Mockito.when(transformerRepository.save(ArgumentMatchers.argThat(transformer -> transformer.getId().equals(newTransformer1.getId())))).thenReturn(updatedTransformer1);
 
-        Response response = transformerService.updateTransformer(updatedTransformer1);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof Integer);
-        assertEquals(newTransformer1.getId(), (Integer) response.getEntity());
+        ResponseEntity response = transformerService.updateTransformer(updatedTransformer1);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof Integer);
+        assertEquals(newTransformer1.getId(), (Integer) response.getBody());
     }
 
     /**
@@ -173,11 +174,11 @@ class TransformerServiceTest {
 
         Mockito.when(transformerRepository.save(newTransformer2)).thenReturn(persistedTransformer2);
 
-        Response response = transformerService.updateTransformer(newTransformer2);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof Integer);
-        assertEquals(Integer.valueOf(2), (Integer) response.getEntity());
+        ResponseEntity response = transformerService.updateTransformer(newTransformer2);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof Integer);
+        assertEquals(Integer.valueOf(2), (Integer) response.getBody());
     }
 
     /**
@@ -194,11 +195,11 @@ class TransformerServiceTest {
         Mockito.when(transformerRepository.findById(2)).thenReturn(Optional.empty());
         Mockito.when(transformerRepository.save(any(Transformer.class))).thenReturn(persistedTransformer2);
 
-        Response response = transformerService.updateTransformer(newTransformer2);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof Integer);
-        assertEquals(Integer.valueOf(1), (Integer) response.getEntity());
+        ResponseEntity response = transformerService.updateTransformer(newTransformer2);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof Integer);
+        assertEquals(Integer.valueOf(1), (Integer) response.getBody());
     }
 
     /**
@@ -208,11 +209,11 @@ class TransformerServiceTest {
     void deleteTransformer() {
         Mockito.when(transformerRepository.existsById(1)).thenReturn(true, false);
 
-        Response response = transformerService.deleteTransformer(1);
-        assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        ResponseEntity response = transformerService.deleteTransformer(1);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 
         response = transformerService.deleteTransformer(1);
-        assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     /**

@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -68,11 +69,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Decepticons", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -99,11 +100,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Autobots", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -129,11 +130,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Decepticons", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -160,11 +161,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Decepticons", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -191,11 +192,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Autobots", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -216,10 +217,10 @@ class BattleServiceTest {
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
         response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        resource = (BattleResultResource) response.getEntity();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        resource = (BattleResultResource) response.getBody();
         assertEquals("Decepticons", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -248,11 +249,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Decepticons", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -281,11 +282,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Both destroyed", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
@@ -313,11 +314,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Both destroyed", resource.getWinningTeam());
         assertEquals(0, resource.getNumOfBattles());
 
@@ -349,11 +350,11 @@ class BattleServiceTest {
 
         Mockito.when(transformerService.getTransformers(ArgumentMatchers.any())).thenReturn(listAux);
 
-        Response response = battleService.getBattleResult(ids);
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertTrue(response.hasEntity());
-        assertTrue(response.getEntity() instanceof BattleResultResource);
-        BattleResultResource resource = (BattleResultResource) response.getEntity();
+        ResponseEntity response = battleService.getBattleResult(ids);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.hasBody());
+        assertTrue(response.getBody() instanceof BattleResultResource);
+        BattleResultResource resource = (BattleResultResource) response.getBody();
         assertEquals("Both destroyed", resource.getWinningTeam());
         assertEquals(1, resource.getNumOfBattles());
 
